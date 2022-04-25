@@ -60,8 +60,237 @@ h1, h2 {
 
 
 
+
 /*** 1.- Display Grid ***/
 
 .grid-1 {
+    /* Al colocar display grid los elementos se organizan de izquierda a derecha formando una fila */
     display: grid;
+}
+
+
+
+/*** 2.- Grid Template Columns ***/
+
+.grid-2 {
+    display: grid;
+    /* grid-template-columns genera la cantidad de columnas deseadas y los elementos se posicionaran de acuerdo al orden de creación, si sobran elementos se generara una fila nueva */
+    grid-template-columns: 30rem 30rem 30rem;
+}
+
+.grid-2 .box:nth-child(2) {
+    /* Si tomamos uno de los elementos y lo posicionamos a traves de los números de columna se puede hacer de una de estas dos formas*/
+    /* grid-column-start: 1;
+    grid-column-end: 2; */
+
+    grid-column: 1 / 2;
+}
+
+
+
+/*** 3.- Grid Template Rows ***/
+
+.grid-3 {
+    display: grid;
+    /* grid-template-rows genera la cantidad de filas deseadas y los elementos se posicionan en orden de creación, con la opción repeat se le da la cantidad de repeticiones y el tamaño */
+    grid-template-rows: repeat(6, 30rem);
+}
+
+.grid-3 .box:nth-child(2) {
+    /* Si tomamos uno de los elementos y lo posicionamos a traves de los números de fila se puede hacer de una de estas dos formas*/
+    /* grid-row-start: 1;
+    grid-row-end: 2; */
+
+    grid-row: 1 / 2;
+}
+
+/* Si combinamos ambos métodos tanto de columnas como de filas y el posicionamiento interno de los elementos llegaremos a generar la maquetacion deseada */
+.grid-3 {
+    grid-template-rows: repeat(2, 30rem);
+    grid-template-columns: 30rem 30rem 30rem;
+}
+
+
+
+/*** 4.- Span ***/
+
+.grid-4 {
+    display: grid;
+    grid-template-rows: repeat(3, 30rem);
+    grid-template-columns: repeat(3, 30rem);
+}
+.grid-4 .box:nth-child(2) {
+    /* El span indica el numero de linea inicial y luego la cantidad de espacio que va a ocupar */
+    grid-column: 2 / span 2;
+    grid-row: 1 / span 2;
+    background-color: blue;
+}
+
+
+
+/*** 5.- Grid Shorthand ***/
+
+.grid-5 {
+    display: grid;
+    /* grid-template-rows: repeat(2, 30rem);
+    grid-template-columns: repeat(3, 30rem); */
+
+    /* De esta manera se puede realizar lo mismo indicando primero las filas y después las columnas */
+    grid: repeat(2, 30rem) / repeat(3, 30rem);
+}
+
+
+
+/*** 6.- Grid Autoflow ***/
+
+.grid-6 {
+    display: grid;
+    grid: repeat(2, 30rem) / repeat(3, 30rem);
+    /* Hace que se obligue al grid a posicionar los elementos organizando la grilla */
+    grid-auto-flow: dense;
+}
+
+.grid-6 .box:nth-child(2) {
+    grid-column: 1 / 2;
+}
+
+
+
+/*** 7.- Grid Fr y Grid Repeat ***/
+
+.grid-7 {
+    display: grid;
+    height: 60rem;
+    /* Podemos crear columnas fraccionando el espacio del contenedor */
+    /* grid-template-columns: 2fr repeat(2, 1fr); */
+
+    /* Tambien podemos utilizar el Shorthand junto con las fracciones*/
+    grid: repeat(2, 1fr) / repeat(3, 1fr);
+}
+
+
+
+/*** 8.- Grid Gap ***/
+
+.grid-8 {
+    display: grid;
+    grid: repeat(2, 30rem) / repeat(3, 1fr);
+    /* column-gap: 2rem;
+    row-gap: 2rem; */
+
+    /* Esto hace lo mismo que lo de arriba */
+    gap: 2rem;
+
+}
+
+.grid-8 .box {
+    margin: 0;
+}
+
+
+
+/*** 9.- Grid Areas ***/
+
+.grid-9 {
+    display: grid;
+    /* Asignamos una altura al contenedor */
+    height: 120rem;
+    /* Activamos el Grid areas y como tenemos 3 columnas vamos nombrando por cada fila que deseamos formar los nombres del area que ocupara cada elemento */
+    grid-template-areas:
+        "header header header"
+        "nav nav nav"
+        "contenido contenido sidebar"
+        "footer footer footer";
+    grid-template-columns: repeat(3, 1fr);
+    /* A cada fila le damos una medida en fracciones de lo que ocupara cada elemento */
+    grid-template-rows: 2.5fr 1fr 6fr 2.5fr;
+    gap: 0.5rem;
+}
+
+.grid-9 .box {
+    margin: 0;
+}
+/* Vamos ubicando area por area a cada elemento para obtener su ubicación en el contenedor */
+.grid-9 .box:nth-child(1) {
+    grid-area: header;
+}
+.grid-9 .box:nth-child(2) {
+    grid-area: nav;
+}
+.grid-9 .box:nth-child(3) {
+    grid-area: contenido;
+}
+.grid-9 .box:nth-child(4) {
+    grid-area: sidebar;
+}
+.grid-9 .box:nth-child(5) {
+    grid-area: footer;
+}
+
+
+
+/*** 10.- Grid Template ***/
+
+.grid-10 {
+    display: grid;
+    /* Asignamos una altura al contenedor */
+    height: 120rem;
+    /* Activamos el Grid template y vamos nombrando por cada fila que deseamos formar los nombres del area que ocupara cada elemento, como tenemos 3 columnas las formamos de ultimo después del /  */
+    grid-template:
+        "header header header" 2.5fr
+        "nav nav nav" 1fr
+        "contenido contenido sidebar" 6fr
+        "footer footer footer" 2.5fr / 1fr 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.grid-10 .box {
+    margin: 0;
+}
+/* Vamos ubicando area por area a cada elemento para obtener su ubicación en el contenedor */
+.grid-10 .box:nth-child(1) {
+    grid-area: header;
+}
+.grid-10 .box:nth-child(2) {
+    grid-area: nav;
+}
+.grid-10 .box:nth-child(3) {
+    grid-area: contenido;
+}
+.grid-10 .box:nth-child(4) {
+    grid-area: sidebar;
+}
+.grid-10 .box:nth-child(5) {
+    grid-area: footer;
+}
+
+
+
+/*** 11.- Alineación Grid ***/
+
+.grid-11 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    height: 30rem;
+    /* Se utiliza para alinear el contenido en el contenedor */
+    align-items: center;
+    /* Esta es otra forma de hacerlo, se puede utilizar cualquiera de los dos */
+    place-content: center;
+    /* Otra forma mas, recordar que solo funcionan para alinear verticalmente */
+    align-content: center;
+}
+
+
+
+/*** 12.- Grid Autofill y Autofit ***/
+
+.grid-12 {
+    display: grid;
+    /* auto-fill genera una cantidad de columnas hasta rellenar el espacio total asi no se necesiten mas */
+    grid-template-columns: repeat(auto-fill, 20rem);
+    /* auto-fit genera solo la cantidad de columnas necesarias, ninguno de estos métodos funciona con fr o fracciones por si solos */
+    grid-template-columns: repeat(auto-fit, 20rem);
+
+    /* Permite agregar al auto-fit un tamaño mínimo en px y un tamaño máximo en fr lo cual permite que se vuelva dinámico al cambiar el tamaño de la pantalla, esta es la mejor opción */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
